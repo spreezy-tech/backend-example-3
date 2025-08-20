@@ -6,4 +6,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDetailsRepository extends JpaRepository<UserDetails, Integer> {
+
+    UserDetails findByName(String name);
+    // select * from user_details where name = :name
+
+    // select * from user_details where name = :name and email = :email;
+    UserDetails findByNameAndEmail(String name, String email);
+
 }

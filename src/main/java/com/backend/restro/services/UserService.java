@@ -13,16 +13,30 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private UserDetailsRepository userDetailsRepository;
-    private UserDetails userDetails = new UserDetails();
 
     UserService(UserDetailsRepository userDetailsRepository){
         this.userDetailsRepository = userDetailsRepository;
-        this.userDetails.setName("ABC");
     }
 
     public String createUserRegistration(RegistrationRequest request){
         log.info("Registration request {}", request);
-        return "User registered";
+//        UserDetails userDetails = new UserDetails();
+//        userDetails.setName(request.getName());
+//        userDetails.setEmail(request.getEmail());
+//        userDetails.setPassword(request.getPassword());
+//        userDetails.setPhoneNumber(request.getPhoneNumber());
+
+        UserDetails userDetails = UserDetails.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .phoneNumber(request.getPhoneNumber())
+                        .build();
+
+
+        userDetailsRepository.save(userDetails);
+
+        return "User registered : "+userDetails.getName();
     }
 
     public String updateUserDetails(RegistrationUpdateRequest updateRequest){
@@ -33,6 +47,10 @@ public class UserService {
     public String deleteUserDetails(String name){
         log.error("Delete user {}", name);
         log.debug("debug log");
+
+        UserDetails userDetails = userDetailsRepository.findByName(name);
+        userDetailsRepository.delete(userDetails);
+
         return "User deleted";
     }
 }

@@ -9,6 +9,9 @@ import java.math.BigInteger;
 @Data
 @Entity
 @Table(name = "user_details")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDetails {
 
     @Id

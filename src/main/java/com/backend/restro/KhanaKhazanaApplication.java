@@ -11,3 +11,13 @@ public class KhanaKhazanaApplication {
 	}
 
 }
+
+
+/*
+@Query
+@Value
+@Qualifier
+@Configuration
+Swagger
+Environment properties
+ */

@@ -1,6 +1,7 @@
 package com.backend.restro.controller;
 
 import com.backend.restro.model.RegistrationRequest;
+import com.backend.restro.model.RegistrationResponse;
 import com.backend.restro.model.RegistrationUpdateRequest;
 import com.backend.restro.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -39,19 +40,19 @@ public class UserController {
 
     //    http://localhost:8080/user/create
     @PostMapping("/create")
-    public ResponseEntity<String> createUserRegistration(@RequestBody RegistrationRequest registrationRequest){
+    public ResponseEntity<RegistrationResponse> createUserRegistration(@RequestBody RegistrationRequest registrationRequest){
         return new ResponseEntity<>(this.userService.createUserRegistration(registrationRequest), HttpStatus.OK);
     }
 
     //    http://localhost:8080/user/update
     @PutMapping("/update")
-    public ResponseEntity<String> updateUserRegistration(@RequestBody RegistrationUpdateRequest registrationRequest){
+    public ResponseEntity<RegistrationResponse> updateUserRegistration(@RequestBody RegistrationUpdateRequest registrationRequest){
         return new ResponseEntity<>(this.userService.updateUserDetails(registrationRequest), HttpStatus.OK);
     }
 
     //    http://localhost:8080/user/delete/Sarthak
     @DeleteMapping("/delete/{name}")
-    public ResponseEntity<String> deleteUserRegistration(@PathVariable String name){
+    public ResponseEntity<RegistrationResponse> deleteUserRegistration(@PathVariable String name){
         return new ResponseEntity<>(this.userService.deleteUserDetails(name), HttpStatus.OK);
     }
 

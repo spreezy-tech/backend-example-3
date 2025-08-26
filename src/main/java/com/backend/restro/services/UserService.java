@@ -7,8 +7,12 @@ import com.backend.restro.model.RegistrationUpdateRequest;
 import com.backend.restro.repository.BookingRepository;
 import com.backend.restro.repository.UserDetailsRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -22,9 +26,11 @@ public class UserService {
     private Long pinCode;
 
     private UserDetailsRepository userDetailsRepository;
+    private NotificationService notificationService;
 
-    UserService(UserDetailsRepository userDetailsRepository){
+    UserService(UserDetailsRepository userDetailsRepository, @Qualifier("emailNotificationService") NotificationService notificationService){
         this.userDetailsRepository = userDetailsRepository;
+        this.notificationService = notificationService;
     }
 
     public RegistrationResponse createUserRegistration(RegistrationRequest request){
@@ -55,6 +61,9 @@ public class UserService {
         log.warn("Registration update request {}", updateRequest);
         log.info("Dummy setting from configuration file : {}", dummyProperty);
         log.info("Dummy pincode from configuration file : {}", pinCode);
+
+        log.info("Notification log : {}", notificationService.sendNotification());
+
         UserDetails userDetails = userDetailsRepository.getUserDetails(updateRequest.getName(), updateRequest.getEmail());
 
         userDetails.setPassword(updateRequest.getPassword() );

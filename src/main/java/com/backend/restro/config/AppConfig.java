@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Bean
+    @Bean("swagger")
     public OpenAPI swaggerSetup(){
         return new OpenAPI().info(
                 new Info()
